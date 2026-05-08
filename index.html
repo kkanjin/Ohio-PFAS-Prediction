@@ -416,26 +416,26 @@ body{
 <!-- RIGHT PANEL — full height -->
 <div id="right">
   <div class="phdr">ML Feature Importance</div>
-  <div style="flex:1;padding:8px 12px;display:flex;flex-direction:column;min-height:0;">
-    <div class="chart-fill">
-      <canvas id="featChart"></canvas>
+ <div style="height:280px;padding:8px 12px;display:flex;flex-direction:column;flex-shrink:0;">
+    <div style="flex:1;position:relative;min-height:0;">
+      <canvas id="featChart" style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;"></canvas>
     </div>
-    <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:2;flex-shrink:0;">
+    <div style="font-size:11px;color:#64748b;margin-top:6px;line-height:1.5;flex-shrink:0;">
       <span style="color:#1565C0;font-weight:700;">Dark blue</span> = true source features (military + TRI) — contribute <span style="color:#1565C0;font-weight:700;">17.3%</span> combined.
     </div>
   </div>
 
   <div class="phdr">Model Performance</div>
-  <div class="perf-grid">
-    <div class="sc"><div class="sv g" style="font-size:15px;">0.980</div><div class="sl">CV F1 Macro</div></div>
-    <div class="sc"><div class="sv g" style="font-size:15px;">±0.002</div><div class="sl">Std Dev</div></div>
-    <div class="sc"><div class="sv" style="font-size:15px;">300</div><div class="sl">Trees</div></div>
-    <div class="sc"><div class="sv" style="font-size:15px;">9</div><div class="sl">Features</div></div>
+<div class="perf-grid" style="padding:12px;">
+    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:20px;">0.980</div><div class="sl" style="font-size:11px;margin-top:5px;">CV F1 Macro</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:20px;">±0.002</div><div class="sl" style="font-size:11px;margin-top:5px;">Std Dev</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:20px;">300</div><div class="sl" style="font-size:11px;margin-top:5px;">Trees</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:20px;">9</div><div class="sl" style="font-size:11px;margin-top:5px;">Features</div></div>
   </div>
 
   <div class="phdr">Risk Distribution</div>
-  <div style="flex-shrink:0;padding:8px 12px;height:145px;position:relative;">
-    <canvas id="riskChart" style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;width:calc(100% - 24px)!important;height:114px!important;"></canvas>
+<div style="flex:1;padding:8px 12px;position:relative;min-height:140px;">
+    <canvas id="riskChart" style="position:absolute;top:8px;left:10px;right:10px;bottom:8px;width:calc(100% - 24px)!important;height:calc(100% - 16px)!important;"></canvas>
   </div>
 </div>
 
@@ -555,7 +555,7 @@ const fd=[{"feature": "Dist. to PFAS Detection", "importance": 0.3768, "true_sou
 new Chart(document.getElementById('featChart'),{
   type:'bar',
   data:{labels:fd.map(d=>d.feature),datasets:[{data:fd.map(d=>d.importance),backgroundColor:fd.map(d=>d.true_source?'#1565C0':'#90CAF9'),borderColor:fd.map(d=>d.true_source?'#0D47A1':'#64B5F6'),borderWidth:1,borderRadius:2}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:8}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#475569',font:{size:8}},grid:{color:'#F1F5F9'}}}}
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#475569',font:{size:11}},grid:{color:'#F1F5F9'}}}}
 });
 
 // PANEL RESIZING
