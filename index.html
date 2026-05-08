@@ -255,8 +255,76 @@ body{
       <div class="step"><div class="step-num">7</div><div class="step-text"><b>Output</b> — Risk predicted for all 1,539 OH watersheds. {stats['priority_unmonitored']} unmonitored flagged Moderate+.</div></div>
     </div>
   </div>
+<!-- METHODOLOGY ACCORDION — open by default -->
+  <div class="accordion">
+    <button class="accordion-btn open" onclick="toggleAccordion('meth')">
+      Methodology & Data <i class="accordion-icon">▼</i>
+    </button>
+    <div class="accordion-body open" id="meth">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><b>Data</b> — EPA UCMR5 (1.9M records), ECHO (PWS), DoD MIRTA (15 military), TRI (8 PFAS facilities), USGS WBD (1,541 HUC12).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><b>Filtering</b> — 34,135 Ohio records → 665 confirmed detections across 141 water systems.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Spatial Join</b> — 131 PWS joined to HUC12 (EPSG:26917, predicate = within).</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><b>Risk Score</b> — 0–100 composite: system count (30%) + detections (30%) + max conc. (25%) + PFOA/PFOS (15%).</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><b>Features</b> — 9 spatial variables: area, shape, centroid, dist. to PFAS detection, military site, TRI facility.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text"><b>Model</b> — Random Forest 300 trees + SMOTE. 5-fold CV macro F1 = 0.980 ± 0.002.</div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-text"><b>Output</b> — Risk predicted for all 1,539 OH watersheds. {stats['priority_unmonitored']} unmonitored flagged Moderate+.</div></div>
+    </div>
+  </div>
 
-  <div class="phdr">Risk Categories</div>
+ <div class="phdr">Confusion Matrix</div>
+  <div style="padding:10px 12px;flex-shrink:0;">
+    <div style="font-size:11px;color:#64748b;margin-bottom:8px;line-height:1.5;">
+      Rows = Actual class &nbsp;|&nbsp; Columns = Predicted class<br>
+      <span style="color:#2E7D32;font-weight:700;">■ Green</span> = correct &nbsp;|&nbsp;
+      <span style="color:#C62828;font-weight:700;">■ Red</span> = misclassified
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;">
+      <thead>
+        <tr>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:10px;">Actual \\ Pred</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:10px;">No PFAS</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:10px;">Low</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:10px;">Moderate</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:10px;">High</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:10px;background:#F0F7FF;">No PFAS</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">260</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">13</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">12</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:10px;background:#F0F7FF;">Low</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFF3E0;color:#E65100;">1</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">9</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">4</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:10px;background:#F0F7FF;">Moderate</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFF3E0;color:#E65100;">2</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">5</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">1</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:10px;background:#F0F7FF;">High</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">1</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">0</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#64748b;margin-top:7px;line-height:1.5;">
+      Overall accuracy: <span style="color:#1565C0;font-weight:700;">88.6%</span> &nbsp;|&nbsp;
+      No PFAS precision: <span style="color:#2E7D32;font-weight:700;">99%</span><br>
+      Minority classes limited by small sample sizes.
+    </div>
+  </div>
 </div>
 
 <!-- LEFT RESIZER -->
@@ -362,7 +430,7 @@ body{
 
 <!-- RIGHT PANEL — full height -->
 <div id="right">
-    <div class="phdr">ML Feature Importance</div>
+  <div class="phdr">ML Feature Importance</div>
   <div style="flex:1;padding:8px 12px;display:flex;flex-direction:column;min-height:0;">
     <div class="chart-fill">
       <canvas id="featChart"></canvas>
