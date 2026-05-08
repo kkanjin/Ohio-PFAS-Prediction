@@ -32,7 +32,7 @@ body{
 
 /* LEFT PANEL — full height */
 #left{
-  width:400px;min-width:200px;max-width:500px;
+  width:400px;min-width:180px;max-width:500px;
   flex-shrink:0;flex-grow:0;
   background:white;
   border-right:2px solid #1565C0;
@@ -42,7 +42,7 @@ body{
 
 /* RIGHT PANEL — full height */
 #right{
-  width:400px;min-width:200px;max-width:420px;
+  width:400px;min-width:180px;max-width:420px;
   flex-shrink:0;flex-grow:0;
   background:white;
   border-left:2px solid #1565C0;
@@ -240,21 +240,6 @@ body{
     <div class="stat-icon"></div>
     <div><div class="stat-label">Priority Unmonitored</div><div class="stat-value o">14</div></div>
   </div>
-  <!-- METHODOLOGY ACCORDION — open by default -->
-  <div class="accordion">
-    <button class="accordion-btn open" onclick="toggleAccordion('meth')">
-      Methodology & Data <i class="accordion-icon">▼</i>
-    </button>
-    <div class="accordion-body open" id="meth">
-      <div class="step"><div class="step-num">1</div><div class="step-text"><b>Data</b> — EPA UCMR5 (1.9M records), ECHO (PWS), DoD MIRTA (15 military), TRI (8 PFAS facilities), USGS WBD (1,541 HUC12).</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text"><b>Filtering</b> — 34,135 Ohio records → 665 confirmed detections across 141 water systems.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Spatial Join</b> — 131 PWS joined to HUC12 (EPSG:26917, predicate = within).</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-text"><b>Risk Score</b> — 0–100 composite: system count (30%) + detections (30%) + max conc. (25%) + PFOA/PFOS (15%).</div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-text"><b>Features</b> — 9 spatial variables: area, shape, centroid, dist. to PFAS detection, military site, TRI facility.</div></div>
-      <div class="step"><div class="step-num">6</div><div class="step-text"><b>Model</b> — Random Forest 300 trees + SMOTE. 5-fold CV macro F1 = 0.980 ± 0.002.</div></div>
-      <div class="step"><div class="step-num">7</div><div class="step-text"><b>Output</b> — Risk predicted for all 1,539 OH watersheds. {stats['priority_unmonitored']} unmonitored flagged Moderate+.</div></div>
-    </div>
-  </div>
 <!-- METHODOLOGY ACCORDION — open by default -->
   <div class="accordion">
     <button class="accordion-btn open" onclick="toggleAccordion('meth')">
@@ -435,7 +420,7 @@ body{
     <div class="chart-fill">
       <canvas id="featChart"></canvas>
     </div>
-    <div style="font-size:12px;color:#64748b;margin-top:6px;line-height:1.5;flex-shrink:0;">
+    <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:2;flex-shrink:0;">
       <span style="color:#1565C0;font-weight:700;">Dark blue</span> = true source features (military + TRI) — contribute <span style="color:#1565C0;font-weight:700;">17.3%</span> combined.
     </div>
   </div>
@@ -449,8 +434,8 @@ body{
   </div>
 
   <div class="phdr">Risk Distribution</div>
-  <div style="flex-shrink:0;padding:8px 12px;height:130px;position:relative;">
-    <canvas id="riskChart" style="position:absolute;top:8px;left:12px;right:12px;bottom:8px;width:calc(100% - 24px)!important;height:114px!important;"></canvas>
+  <div style="flex-shrink:0;padding:8px 12px;height:145px;position:relative;">
+    <canvas id="riskChart" style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;width:calc(100% - 24px)!important;height:114px!important;"></canvas>
   </div>
 </div>
 
