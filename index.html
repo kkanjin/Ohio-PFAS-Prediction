@@ -497,16 +497,40 @@ new Chart(document.getElementById('featChart'),{
 // MOBILE DETECTION
 function applyMobileLayout(){{
   if(window.innerWidth < 900){{
+    // Hide side panels
     document.getElementById('left').style.display='none';
     document.getElementById('right').style.display='none';
     document.getElementById('bottom').style.display='none';
     document.getElementById('resizer-left').style.display='none';
     document.getElementById('resizer-right').style.display='none';
+
+    // Make center fill full width and height
+    const center=document.getElementById('center');
+    center.style.width='100vw';
+    center.style.flex='1';
+    center.style.minHeight='0';
+
+    // Make map container fill available height
+    const mapc=document.getElementById('mapc');
+    mapc.style.flex='1';
+    mapc.style.height='calc(100vh - 52px)';
+    mapc.style.minHeight='0';
+
+    // Make content row fill height
+    const content=document.getElementById('content');
+    content.style.height='calc(100vh - 52px)';
+    content.style.overflow='hidden';
+
+    // Reposition legend to top left
     const leg=document.getElementById('leg');
     leg.style.top='10px';
     leg.style.bottom='auto';
     leg.style.left='10px';
-    setTimeout(()=>map.invalidateSize(),300);
+
+    // Force map to recalculate size
+    setTimeout(()=>{{
+      map.invalidateSize();
+    }},500);
   }}
 }}
 applyMobileLayout();
