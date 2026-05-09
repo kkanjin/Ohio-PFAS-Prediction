@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PFAS Risk — Ohio Watersheds</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
+body{{
   background:#f0f4f8;color:#1a2733;
   font-family:'Segoe UI',Arial,sans-serif;
   height:100vh;overflow:hidden;
   display:flex;flex-direction:column;
-}
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}}
 
 #header{
   background:linear-gradient(135deg,#1565C0,#0D47A1);
@@ -98,19 +100,27 @@ body{
 ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:2px;}
 
 /* MOBILE STYLES */
-@media (max-width: 899px) {
-  #left, #right, #bottom, #resizer-left, #resizer-right {
+@media (max-width: 899px) {{
+  #left, #right, #bottom, #resizer-left, #resizer-right {{
     display:none !important;
-  }
-  #content {flex-direction:column;}
-  #center {width:100vw;height:calc(100vh - 52px);flex:1;}
-  #mapc {height:100%;flex:1;}
-  #mobile-stats {display:flex !important;}
-  #header h1 {font-size:13px;}
-  #header .sub {display:none;}
-  #layer-btn {top:70px;}
-  #leg {bottom:30px;}
-}
+  }}
+  #content {{flex-direction:column;}}
+  #center {{width:100vw;height:calc(100vh - 52px);flex:1;}}
+  #mapc {{height:100%;flex:1;}}
+  #mobile-stats {{display:none !important;}}
+  #header h1 {{font-size:13px;}}
+  #header .sub {{font-size:9px;}}
+  #leg {{
+    bottom:auto !important;
+    top:10px !important;
+    left:10px !important;
+    min-width:160px !important;
+    font-size:12px !important;
+    padding:8px 10px !important;
+  }}
+  #leg div[style*="font-size:14px"] {{font-size:12px !important;}}
+  .lei {{font-size:12px !important;margin-bottom:4px !important;}}
+}}
 @media (min-width:900px) {
   #mobile-stats {display:none !important;}
 }
@@ -120,8 +130,8 @@ body{
 
 <div id="header">
   <div>
-    <h1>PFAS Contamination Risk for Ohio Watersheds</h1>
-    <div class="sub">Machine Learning Risk Prediction &nbsp;|&nbsp; By: Kingsley Kanjin, GIS Analyst & Water Quality Planner</div>
+    <h1>Ohio Watershed PFAS Contamination Risk Prediction using Machine Learning </h1>
+    <div class="sub"> By: Kingsley Kanjin, Geospatial Scientist & Water Quality Planner</div>
   </div>
 </div>
 
@@ -130,7 +140,7 @@ body{
 <!-- LEFT PANEL -->
 <div id="left">
   <div class="phdr">Overview</div>
-  <div style="padding:10px 12px;font-size:12px;color:#475569;line-height:1.7;border-bottom:1px solid #E8EDF2;flex-shrink:0;">
+  <div style="padding:10px 12px;font-size:14px;color:#475569;line-height:1.7;border-bottom:1px solid #E8EDF2;flex-shrink:0;">
     This dashboard shows predicted PFAS contamination risk across Ohio's 1,541 HUC12 watersheds using a Random Forest machine learning model trained on EPA monitoring data, military installations, and industrial PFAS sources.
   </div>
 
