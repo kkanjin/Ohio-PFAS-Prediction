@@ -100,26 +100,19 @@ body{{
 ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:2px;}
 
 /* MOBILE STYLES */
-@media (max-width: 899px) {{
-  #left, #right, #bottom, #resizer-left, #resizer-right {{
+/* MOBILE STYLES */
+@media screen and (max-width: 899px) {{
+  #left, #right, #bottom,
+  #resizer-left, #resizer-right,
+  #mobile-stats {{
     display:none !important;
   }}
-  #content {{flex-direction:column;}}
-  #center {{width:100vw;height:calc(100vh - 52px);flex:1;}}
-  #mapc {{height:100%;flex:1;}}
-  #mobile-stats {{display:none !important;}}
-  #header h1 {{font-size:13px;}}
-  #header .sub {{font-size:9px;}}
   #leg {{
-    bottom:auto !important;
     top:10px !important;
+    bottom:auto !important;
     left:10px !important;
-    min-width:160px !important;
-    font-size:12px !important;
-    padding:8px 10px !important;
+    right:auto !important;
   }}
-  #leg div[style*="font-size:14px"] {{font-size:12px !important;}}
-  .lei {{font-size:12px !important;margin-bottom:4px !important;}}
 }}
 @media (min-width:900px) {
   #mobile-stats {display:none !important;}
@@ -501,10 +494,23 @@ new Chart(document.getElementById('featChart'),{
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#475569',font:{size:11}},grid:{color:'#F1F5F9'}}}}
 });
 
-// MOBILE
-if(window.innerWidth < 900){
-  setTimeout(()=>map.invalidateSize(),300);
-}
+// MOBILE DETECTION
+function applyMobileLayout(){{
+  if(window.innerWidth < 900){{
+    document.getElementById('left').style.display='none';
+    document.getElementById('right').style.display='none';
+    document.getElementById('bottom').style.display='none';
+    document.getElementById('resizer-left').style.display='none';
+    document.getElementById('resizer-right').style.display='none';
+    const leg=document.getElementById('leg');
+    leg.style.top='10px';
+    leg.style.bottom='auto';
+    leg.style.left='10px';
+    setTimeout(()=>map.invalidateSize(),300);
+  }}
+}}
+applyMobileLayout();
+window.addEventListener('resize',applyMobileLayout);
 </script>
 </body>
 </html>
