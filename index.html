@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PFAS Risk — Ohio Watersheds</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -15,189 +16,108 @@ body{
   display:flex;flex-direction:column;
 }
 
-/* HEADER */
 #header{
   background:linear-gradient(135deg,#1565C0,#0D47A1);
   color:white;padding:0 20px;height:52px;flex-shrink:0;
   display:flex;justify-content:space-between;align-items:center;
   box-shadow:0 2px 8px rgba(0,0,0,0.2);
 }
-#header h1{font-size:20px;font-weight:700;}
-#header .sub{font-size:12px;color:#90CAF9;margin-top:2px;}
+#header h1{font-size:16px;font-weight:700;}
+#header .sub{font-size:10px;color:#90CAF9;margin-top:2px;}
 
-/* CONTENT AREA */
-#content{
-  flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0;
-}
+#content{flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0;}
 
-/*  — full height */
-#left{
-  width:400px;min-width:180px;max-width:500px;
-  flex-shrink:0;flex-grow:0;
-  background:white;
-  border-right:2px solid #1565C0;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-
-/* RIGHT PANEL — full height */
-#right{
-  width:400px;min-width:200px;max-width:600px;
-  flex-shrink:0;flex-grow:0;
-  background:white;
-  border-left:2px solid #1565C0;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-
-/* CENTER COLUMN — map on top, bottom panels below */
-#center{
-  flex:1;display:flex;flex-direction:column;overflow:hidden;
-}
-
-/* MAP */
-#mapc{
-  flex:1;position:relative;
-  background:#e8edf2;overflow:hidden;
-  min-height:0;
-}
+#left{width:280px;min-width:200px;max-width:500px;flex-shrink:0;flex-grow:0;background:white;border-right:2px solid #1565C0;display:flex;flex-direction:column;overflow-y:auto;}
+#right{width:300px;min-width:200px;max-width:420px;flex-shrink:0;flex-grow:0;background:white;border-left:2px solid #1565C0;display:flex;flex-direction:column;overflow:hidden;}
+#center{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+#mapc{flex:1;position:relative;background:#e8edf2;overflow:hidden;min-height:0;}
 #map{width:100%;height:100%;}
 
-/* BOTTOM ROW — 4 equal panels below map only */
-#bottom{
-  height:180px;flex-shrink:0;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr 1fr;
-  border-top:2px solid #1565C0;
-  background:white;
-}
-
-.bot-sec{
-  padding:11px 13px;
-  border-right:1px solid #E2E8F0;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
+#bottom{height:200px;flex-shrink:0;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-top:2px solid #1565C0;background:white;}
+.bot-sec{padding:11px 13px;border-right:1px solid #E2E8F0;display:flex;flex-direction:column;overflow:hidden;}
 .bot-sec:last-child{border-right:none;}
+.bot-sec h3{font-size:10px;font-weight:700;color:#1565C0;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:2px solid #E3F2FD;flex-shrink:0;}
 
-.bot-sec h3{
-  font-size:12px;font-weight:700;color:#1565C0;
-  letter-spacing:1px;text-transform:uppercase;
-  margin-bottom:8px;padding-bottom:5px;
-  border-bottom:2px solid #E3F2FD;flex-shrink:0;
-}
+.phdr{background:#1565C0;color:white;padding:8px 12px;flex-shrink:0;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
 
-/* PANEL SECTIONS */
-.psec{
-  border-bottom:1px solid #E8EDF2;
-  padding:10px 12px;flex-shrink:0;
-}
-.psec h3{
-  font-size:12px;font-weight:700;color:#1565C0;
-  letter-spacing:1px;text-transform:uppercase;
-  margin-bottom:7px;padding-bottom:4px;
-  border-bottom:2px solid #E3F2FD;
-}
-
-/* PANEL HEADER */
-.phdr{
-  background:#1565C0;color:white;
-  padding:8px 12px;flex-shrink:0;
-  font-size:12px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-}
-
-/* STAT ITEMS like reference map */
-.stat-item{
-  display:flex;align-items:center;gap:10px;
-  padding:8px 12px;border-bottom:1px solid #E8EDF2;
-  flex-shrink:0;
-}
-.stat-icon{
-  width:20px;height:20px;border-radius:5px;
-  background:#E3F2FD;display:flex;align-items:center;
-  justify-content:center;font-size:18px;flex-shrink:0;
-}
-.stat-label{font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.3px;}
-.stat-value{font-size:20px;font-weight:700;color:#1565C0;line-height:1.1;}
+.stat-item{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:1px solid #E8EDF2;flex-shrink:0;}
+.stat-icon{width:20px;height:20px;border-radius:5px;background:#E3F2FD;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.stat-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.3px;}
+.stat-value{font-size:18px;font-weight:700;color:#1565C0;line-height:1.1;}
 .stat-value.o{color:#E65100;}.stat-value.r{color:#C62828;}
 
-/* SMALL STAT GRID */
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:10px 12px;flex-shrink:0;}
-.sc{background:linear-gradient(135deg,#f8faff,#EEF2FF);border:1px solid #DBEAFE;border-radius:5px;padding:7px 5px;text-align:center;}
+.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:10px 12px;flex-shrink:0;}
+.sc{background:linear-gradient(135deg,#f8faff,#EEF2FF);border:1px solid #DBEAFE;border-radius:5px;padding:10px 5px;text-align:center;}
 .sv{font-size:17px;font-weight:700;color:#1565C0;line-height:1;}
-.sv.o{color:#E65100;}.sv.r{color:#C62828;}.sv.g{color:#2E7D32;}
-.sl{font-size:9px;color:#64748b;margin-top:2px;text-transform:uppercase;}
+.sv.g{color:#2E7D32;}
+.sl{font-size:10px;color:#64748b;margin-top:3px;text-transform:uppercase;}
 
-/* CHART FILL */
 .chart-fill{flex:1;position:relative;min-height:0;}
 .chart-fill canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;}
 
-/* LEGEND ITEMS */
-.lei{display:flex;align-items:center;gap:9px;margin-bottom:6px;font-size:14px;color:#475569;padding:0 12px;}
+.lei{display:flex;align-items:center;gap:9px;margin-bottom:6px;font-size:12px;color:#475569;}
 .ls{width:13px;height:13px;border-radius:2px;flex-shrink:0;border:1.5px solid rgba(0,0,0,0.15);}
 .lc{width:13px;height:13px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(0,0,0,0.15);}
 .lstar{font-size:13px;flex-shrink:0;width:13px;text-align:center;}
-.leg-pfoa,.leg-other,.leg-military,.leg-tri,.leg-unmonitored{display:none;}
-.leg-divider{border:none;border-top:1px solid #E2E8F0;margin:5px 0;display:none;}
 
-/* ACCORDION */
 .accordion{border-bottom:1px solid #E8EDF2;flex-shrink:0;}
-.accordion-btn{width:100%;background:none;border:none;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:12px;font-weight:700;color:#1565C0;letter-spacing:1px;text-transform:uppercase;transition:background 0.15s;}
+.accordion-btn{width:100%;background:none;border:none;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:11px;font-weight:700;color:#1565C0;letter-spacing:1px;text-transform:uppercase;transition:background 0.15s;}
 .accordion-btn:hover,.accordion-btn.open{background:#F0F7FF;}
 .accordion-icon{font-size:10px;color:#90CAF9;transition:transform 0.2s;font-style:normal;}
 .accordion-btn.open .accordion-icon{transform:rotate(180deg);}
-.accordion-body{display:none;padding:8px 12px;overflow-y:auto;max-height:200px;}
+.accordion-body{display:none;padding:8px 12px;}
 .accordion-body.open{display:block;}
 .step{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
 .step-num{background:#1565C0;color:white;border-radius:50%;width:17px;height:17px;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.step-text{font-size:14px;color:#475569;line-height:1.5;}
+.step-text{font-size:12px;color:#475569;line-height:1.5;}
 .step-text b{color:#1a2733;}
 
-/* PERF GRID */
-.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px 12px;flex-shrink:0;}
+.resizer{width:5px;background:#E2E8F0;cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10;}
+.resizer:hover,.resizer.active{background:#1565C0;}
+.resizer::after{content:'⋮';color:#94A3B8;font-size:14px;pointer-events:none;}
+.resizer:hover::after,.resizer.active::after{color:white;}
 
-/* MAP CONTROLS */
 #layer-btn{position:absolute;top:10px;right:10px;background:white;border:2px solid #1565C0;border-radius:6px;padding:6px 11px;z-index:1001;cursor:pointer;font-size:11px;font-weight:700;color:#1565C0;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;align-items:center;gap:5px;}
 #layer-btn:hover{background:#F0F7FF;}
 #layer-btn svg{width:14px;height:14px;stroke:#1565C0;fill:none;stroke-width:2;stroke-linecap:round;}
 #lc{position:absolute;top:46px;right:10px;background:white;border:1px solid #CBD5E1;border-radius:7px;padding:10px 12px;z-index:1000;min-width:170px;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:none;}
 #lc.visible{display:block;}
-#lc h4{font-size:12px;font-weight:700;color:#1565C0;margin-bottom:7px;border-bottom:1px solid #E2E8F0;padding-bottom:4px;}
+#lc h4{font-size:11px;font-weight:700;color:#1565C0;margin-bottom:7px;border-bottom:1px solid #E2E8F0;padding-bottom:4px;}
 .li{display:flex;align-items:center;gap:7px;margin-bottom:5px;cursor:pointer;font-size:12px;color:#475569;}
 .li input{cursor:pointer;accent-color:#1565C0;width:12px;height:12px;}
 
-/* FOOTER */
-#foot{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,0.95);padding:3px 10px;font-size:10px;color:#94A3B8;text-align:center;z-index:500;border-top:1px solid #E2E8F0;display:flex;align-items:center;justify-content:center;gap:7px;}
+#foot{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,0.95);padding:3px 10px;font-size:9px;color:#94A3B8;text-align:center;z-index:500;border-top:1px solid #E2E8F0;display:flex;align-items:center;justify-content:center;gap:7px;}
 #foot a{text-decoration:none;display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:600;}
 #foot a:hover{opacity:0.75;}
 
-/* LEAFLET */
-.leaflet-popup-content-wrapper{background:white;color:#1a2733;border:1px solid #CBD5E1;border-radius:7px;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.leaflet-popup-content-wrapper{background:white;color:#1a2733;border:1px solid #CBD5E1;border-radius:7px;font-family:'Segoe UI',Arial,sans-serif;font-size:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
 .leaflet-popup-tip{background:white;}
 .leaflet-popup-content{margin:11px 13px;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:#f0f4f8;}
 ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:2px;}
 
-/* IB */
-.ib{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:9px;font-size:12px;color:#475569;line-height:1.75;}
-.ib .h{color:#1565C0;font-weight:700;}.ib .w{color:#E65100;font-weight:700;}.ib .r{color:#C62828;font-weight:700;}
-
-.resizer{
-  width:5px;background:#E2E8F0;
-  cursor:col-resize;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:background 0.2s;z-index:10;
+/* MOBILE STYLES */
+@media (max-width: 899px) {
+  #left, #right, #bottom, #resizer-left, #resizer-right {
+    display:none !important;
+  }
+  #content {flex-direction:column;}
+  #center {width:100vw;height:calc(100vh - 52px);flex:1;}
+  #mapc {height:100%;flex:1;}
+  #mobile-stats {display:flex !important;}
+  #header h1 {font-size:13px;}
+  #header .sub {display:none;}
+  #layer-btn {top:70px;}
+  #leg {bottom:30px;}
 }
-.resizer:hover,.resizer.active{background:#1565C0;}
-.resizer::after{content:'⋮';color:#94A3B8;font-size:14px;pointer-events:none;}
-.resizer:hover::after,.resizer.active::after{color:white;}
+@media (min-width:900px) {
+  #mobile-stats {display:none !important;}
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div id="header">
   <div>
     <h1>PFAS Contamination Risk for Ohio Watersheds</h1>
@@ -207,95 +127,79 @@ body{
 
 <div id="content">
 
-<!-- LEFT PANEL — full height -->
+<!-- LEFT PANEL -->
 <div id="left">
   <div class="phdr">Overview</div>
-  <div style="padding:10px 12px;font-size:14px;color:#475569;line-height:1.7;border-bottom:1px solid #E8EDF2;flex-shrink:0;">
+  <div style="padding:10px 12px;font-size:12px;color:#475569;line-height:1.7;border-bottom:1px solid #E8EDF2;flex-shrink:0;">
     This dashboard shows predicted PFAS contamination risk across Ohio's 1,541 HUC12 watersheds using a Random Forest machine learning model trained on EPA monitoring data, military installations, and industrial PFAS sources.
   </div>
 
-    <div class="phdr" style="margin-top:0;">Key Statistics </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">Total HUC12 Watersheds</div><div class="stat-value">1,541</div></div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">Watersheds With PFAS</div><div class="stat-value o">117</div></div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">PFOA/PFOS Systems</div><div class="stat-value r">56</div></div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">Other PFAS Systems</div><div class="stat-value o">75</div></div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">Total Detections</div><div class="stat-value">665</div></div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-icon"></div>
-    <div><div class="stat-label">Priority Unmonitored</div><div class="stat-value o">14</div></div>
-  </div>
-<!-- METHODOLOGY ACCORDION — open by default -->
+  <div class="phdr">Key Statistics</div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Total HUC12 Watersheds</div><div class="stat-value">1,541</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Watersheds With PFAS</div><div class="stat-value o">117</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">PFOA/PFOS Systems</div><div class="stat-value r">56</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Other PFAS Systems</div><div class="stat-value o">75</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Total Detections</div><div class="stat-value">665</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Priority Unmonitored</div><div class="stat-value o">14</div></div></div>
+
+  <!-- METHODOLOGY ACCORDION — open by default -->
   <div class="accordion">
     <button class="accordion-btn open" onclick="toggleAccordion('meth')">
-    <div class="phdr" style="margin-top:0;">Methodology & Data </div><i class="accordion-icon">▼</i>
+      Methodology & Data <i class="accordion-icon">▼</i>
     </button>
     <div class="accordion-body open" id="meth">
       <div class="step"><div class="step-num">1</div><div class="step-text"><b>Data</b> — EPA UCMR5 (1.9M records), ECHO (PWS), DoD MIRTA (15 military), TRI (8 PFAS facilities), USGS WBD (1,541 HUC12).</div></div>
       <div class="step"><div class="step-num">2</div><div class="step-text"><b>Filtering</b> — 34,135 Ohio records → 665 confirmed detections across 141 water systems.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Spatial Join</b> — 131 PWS joined to HUC12 .</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Spatial Join</b> — 131 PWS joined to HUC12 (EPSG:26917, predicate = within).</div></div>
       <div class="step"><div class="step-num">4</div><div class="step-text"><b>Risk Score</b> — 0–100 composite: system count (30%) + detections (30%) + max conc. (25%) + PFOA/PFOS (15%).</div></div>
       <div class="step"><div class="step-num">5</div><div class="step-text"><b>Features</b> — 9 spatial variables: area, shape, centroid, dist. to PFAS detection, military site, TRI facility.</div></div>
       <div class="step"><div class="step-num">6</div><div class="step-text"><b>Model</b> — Random Forest 300 trees + SMOTE. 5-fold CV macro F1 = 0.980 ± 0.002.</div></div>
-      <div class="step"><div class="step-num">7</div><div class="step-text"><b>Output</b> — Risk predicted for all 1,539 OH watersheds. </div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-text"><b>Output</b> — Risk predicted for all 1,539 OH watersheds. 14 unmonitored flagged Moderate+.</div></div>
     </div>
   </div>
-  
-    <div class="phdr" style="margin-top:0;">Confusion Matrix </div>
+
+  <!-- CONFUSION MATRIX -->
+  <div class="phdr">Confusion Matrix</div>
   <div style="padding:10px 12px;flex-shrink:0;">
-    <div style="font-size:13px;color:#64748b;margin-bottom:8px;line-height:1.5;">
-      Rows = Actual class &nbsp;|&nbsp; Columns = Predicted class<br>
+    <div style="font-size:11px;color:#64748b;margin-bottom:8px;line-height:1.5;">
+      Rows = Actual &nbsp;|&nbsp; Columns = Predicted<br>
       <span style="color:#2E7D32;font-weight:700;">■ Green</span> = correct &nbsp;|&nbsp;
       <span style="color:#C62828;font-weight:700;">■ Red</span> = misclassified
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:11px;">
       <thead>
         <tr>
-          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:12px;">Actual \\ Pred</th>
-          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:12px;">No PFAS</th>
-          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:12px;">Low</th>
-          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:12px;">Moderate</th>
-          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:12px;">High</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:9px;">Actual \ Pred</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:9px;">No PFAS</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:9px;">Low</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:9px;">Moderate</th>
+          <th style="padding:5px 4px;background:#F0F7FF;color:#1565C0;font-weight:700;border:1px solid #DBEAFE;text-align:center;font-size:9px;">High</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:12px;background:#F0F7FF;">No PFAS</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:9px;background:#F0F7FF;">No PFAS</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">260</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">13</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">12</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
         </tr>
         <tr>
-          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:12px;background:#F0F7FF;">Low</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:9px;background:#F0F7FF;">Low</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFF3E0;color:#E65100;">1</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">9</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">4</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
         </tr>
         <tr>
-          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:12px;background:#F0F7FF;">Moderate</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:9px;background:#F0F7FF;">Moderate</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFF3E0;color:#E65100;">2</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">5</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;font-weight:700;background:#E8F5E9;color:#2E7D32;">1</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
         </tr>
         <tr>
-          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:12px;background:#F0F7FF;">High</td>
+          <td style="padding:5px 4px;border:1px solid #E2E8F0;font-weight:700;color:#1565C0;font-size:9px;background:#F0F7FF;">High</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#FFEBEE;color:#C62828;">1</td>
           <td style="padding:5px 4px;border:1px solid #E2E8F0;text-align:center;background:#F5F5F5;color:#9E9E9E;">0</td>
@@ -303,7 +207,7 @@ body{
         </tr>
       </tbody>
     </table>
-    <div style="font-size:12px;color:#64748b;margin-top:7px;line-height:1.5;">
+    <div style="font-size:11px;color:#64748b;margin-top:7px;line-height:1.5;">
       Overall accuracy: <span style="color:#1565C0;font-weight:700;">88.6%</span> &nbsp;|&nbsp;
       No PFAS precision: <span style="color:#2E7D32;font-weight:700;">99%</span><br>
       Minority classes limited by small sample sizes.
@@ -316,10 +220,32 @@ body{
 
 <!-- CENTER COLUMN -->
 <div id="center">
-
-  <!-- MAP -->
   <div id="mapc">
     <div id="map"></div>
+
+    <!-- MOBILE STATS BAR -->
+    <div id="mobile-stats" style="display:none;position:absolute;top:0;left:0;right:0;background:rgba(255,255,255,0.97);border-bottom:2px solid #1565C0;z-index:1000;padding:6px 10px;flex-direction:row;gap:0;overflow-x:auto;flex-wrap:nowrap;">
+      <div style="flex-shrink:0;padding:3px 12px;border-right:1px solid #E2E8F0;text-align:center;">
+        <div style="font-size:9px;color:#64748b;text-transform:uppercase;">Watersheds</div>
+        <div style="font-size:15px;font-weight:700;color:#1565C0;">1,541</div>
+      </div>
+      <div style="flex-shrink:0;padding:3px 12px;border-right:1px solid #E2E8F0;text-align:center;">
+        <div style="font-size:9px;color:#64748b;text-transform:uppercase;">With PFAS</div>
+        <div style="font-size:15px;font-weight:700;color:#E65100;">117</div>
+      </div>
+      <div style="flex-shrink:0;padding:3px 12px;border-right:1px solid #E2E8F0;text-align:center;">
+        <div style="font-size:9px;color:#64748b;text-transform:uppercase;">PFOA/PFOS</div>
+        <div style="font-size:15px;font-weight:700;color:#C62828;">56</div>
+      </div>
+      <div style="flex-shrink:0;padding:3px 12px;border-right:1px solid #E2E8F0;text-align:center;">
+        <div style="font-size:9px;color:#64748b;text-transform:uppercase;">Detections</div>
+        <div style="font-size:15px;font-weight:700;color:#1565C0;">665</div>
+      </div>
+      <div style="flex-shrink:0;padding:3px 12px;text-align:center;">
+        <div style="font-size:9px;color:#64748b;text-transform:uppercase;">Unmonitored</div>
+        <div style="font-size:15px;font-weight:700;color:#E65100;">14</div>
+      </div>
+    </div>
 
     <button id="layer-btn" onclick="toggleLayerPanel()">
       <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -335,20 +261,22 @@ body{
       <label class="li"><input type="checkbox" id="c5" onchange="handleLayer('c5',tLayer,'leg-tri')"> TRI PFAS Facilities</label>
       <label class="li"><input type="checkbox" id="c6" onchange="handleLayer('c6',uLayer,'leg-unmonitored')"> Priority Unmonitored</label>
     </div>
-<!-- LEGEND ON MAP -->
-  <div id="leg" style="position:absolute;bottom:20px;left:5px;background:white;border:1px solid #CBD5E1;border-radius:8px;padding:11px 13px;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.12);min-width:180px;">
-    <div style="font-size:14px;font-weight:700;color:#1565C0;margin-bottom:8px;">Map Legend</div>
-    <div style="font-size:12px;font-weight:600;color:#64748b;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.3px;">PFAS Risk Level</div>
-    <div class="lei" style="padding:0;margin-bottom:5px;"><div class="ls" style="background:#CC0000;border-color:#A93226;"></div>High Risk (5 watersheds)</div>
-    <div class="lei" style="padding:0;margin-bottom:5px;"><div class="ls" style="background:#FF8C00;border-color:#E67E22;"></div>Moderate Risk (52 watersheds)</div>
-    <div class="lei" style="padding:0;margin-bottom:5px;"><div class="ls" style="background:#AED6F1;border-color:#85C1E9;"></div>Low Risk (89 watersheds)</div>
-    <div class="lei" style="padding:0;margin-bottom:8px;"><div class="ls" style="background:#EBF5FB;border-color:#BDC3C7;"></div>No PFAS (1393 watersheds)</div>
-    <div class="lei leg-pfoa" id="leg-pfoa" style="padding:0;margin-bottom:5px;display:none;"><div class="lc" style="background:#FF1744;border-color:#B71C1C;"></div>PFOA/PFOS System</div>
-    <div class="lei leg-other" id="leg-other" style="padding:0;margin-bottom:5px;display:none;"><div class="lc" style="background:#FF6D00;border-color:#BF360C;"></div>Other PFAS System</div>
-    <div class="lei leg-military" id="leg-military" style="padding:0;margin-bottom:5px;display:none;"><div class="lstar">⭐</div>Military Installation</div>
-    <div class="lei leg-tri" id="leg-tri" style="padding:0;margin-bottom:5px;display:none;"><div class="lc" style="background:#9B59B6;border-color:#6C3483;"></div>TRI PFAS Facility</div>
-    <div class="lei leg-unmonitored" id="leg-unmonitored" style="padding:0;margin-bottom:5px;display:none;"><div class="lc" style="background:#F39C12;border-color:#D68910;border-style:dashed;"></div>Priority Unmonitored</div>
-  </div>
+
+    <!-- LEGEND ON MAP -->
+    <div id="leg" style="position:absolute;bottom:25px;left:8px;background:white;border:1px solid #CBD5E1;border-radius:8px;padding:11px 13px;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.12);min-width:185px;">
+      <div style="font-size:12px;font-weight:700;color:#1565C0;margin-bottom:7px;">Map Legend</div>
+      <div style="font-size:10px;font-weight:600;color:#64748b;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.3px;">PFAS Risk Level</div>
+      <div class="lei"><div class="ls" style="background:#CC0000;border-color:#A93226;"></div>High Risk (5 watersheds)</div>
+      <div class="lei"><div class="ls" style="background:#FF8C00;border-color:#E67E22;"></div>Moderate Risk (52 watersheds)</div>
+      <div class="lei"><div class="ls" style="background:#AED6F1;border-color:#85C1E9;"></div>Low Risk (89 watersheds)</div>
+      <div class="lei"><div class="ls" style="background:#EBF5FB;border-color:#BDC3C7;"></div>No PFAS (1393 watersheds)</div>
+      <div id="leg-divider" style="border:none;border-top:1px solid #E2E8F0;margin:5px 0;display:none;"></div>
+      <div class="lei" id="leg-pfoa" style="display:none;"><div class="lc" style="background:#FF1744;border-color:#B71C1C;"></div>PFOA/PFOS System</div>
+      <div class="lei" id="leg-other" style="display:none;"><div class="lc" style="background:#FF6D00;border-color:#BF360C;"></div>Other PFAS System</div>
+      <div class="lei" id="leg-military" style="display:none;"><div class="lstar">⭐</div>Military Installation</div>
+      <div class="lei" id="leg-tri" style="display:none;"><div class="lc" style="background:#9B59B6;border-color:#6C3483;"></div>TRI PFAS Facility</div>
+      <div class="lei" id="leg-unmonitored" style="display:none;"><div class="lc" style="background:#F39C12;border-color:#D68910;border-style:dashed;"></div>Priority Unmonitored</div>
+    </div>
 
     <div id="foot">
       <span>Author: Kingsley Kanjin | GIS Analyst & Water Quality Planner | 2026</span>
@@ -365,76 +293,71 @@ body{
     </div>
   </div>
 
-  <!-- BOTTOM ROW — 4 panels below map -->
+  <!-- BOTTOM ROW -->
   <div id="bottom">
-
     <div class="bot-sec">
       <h3>Key Findings</h3>
-      <div style="flex:1;font-size:13px;color:#475569;line-height:1.2;overflow:hidden;">
+      <div style="flex:1;font-size:12px;color:#475569;line-height:1.7;overflow:hidden;">
         <span style="color:#E65100;font-weight:700;">▲ NE Ohio</span> — Mahoning Valley. Newton Falls: <span style="color:#1565C0;font-weight:700;">0.2200 µg/L</span> — 55× EPA MCL.<br><br>
-        <span style="color:#E65100;font-weight:700;">▲ SW Ohio</span> — Wright-Patterson AFB AFFF plume affects multiple watersheds.<br><br>
+        <span style="color:#E65100;font-weight:700;">▲ SW Ohio</span> — Wright-Patterson AFB AFFF plume affects multiple HUC12 subwatersheds.<br><br>
         <span style="color:#1565C0;font-weight:700;">14 unmonitored</span> watersheds predicted Moderate+ risk.
       </div>
     </div>
-
     <div class="bot-sec">
       <h3>Regulatory Context</h3>
-      <div style="flex:1;font-size:13px;color:#475569;line-height:1.2;overflow:hidden;">
+      <div style="flex:1;font-size:12px;color:#475569;line-height:1.7;overflow:hidden;">
         <b style="color:#1565C0;">EPA 2024 PFAS MCLs:</b><br>
         • PFOA &amp; PFOS: <span style="color:#C62828;font-weight:700;">4 ppt</span><br>
         • PFHxS, PFNA, HFPO-DA: <span style="color:#E65100;font-weight:700;">10 ppt</span><br>
         • Compliance: <span style="color:#E65100;font-weight:700;">April 2029</span><br><br>
-        <span style="color:#C62828;font-weight:700;">56 systems</span> must install GAC or reverse osmosis treatment.
+        <span style="color:#C62828;font-weight:700;">56 systems</span> must install GAC or reverse osmosis.
       </div>
     </div>
-
     <div class="bot-sec">
       <h3>Source Attribution</h3>
-      <div style="flex:1;font-size:13px;color:#475569;line-height:1.2;overflow:hidden;">
+      <div style="flex:1;font-size:12px;color:#475569;line-height:1.7;overflow:hidden;">
         True source features contribute <span style="color:#1565C0;font-weight:700;">17.3%</span> model importance:<br><br>
         • <span style="color:#1565C0;font-weight:700;">Military sites</span> — 7.4%. Wright-Patterson AFB is key AFFF source.<br><br>
-        • <span style="color:#1565C0;font-weight:700;">TRI facilities</span> — 9.5%. Covestro Newark is highest Ohio industrial reporter at 260 lbs.
+        • <span style="color:#1565C0;font-weight:700;">TRI facilities</span> — 9.5%. Covestro Newark highest at 260 lbs.
       </div>
     </div>
-
     <div class="bot-sec">
       <h3>Model Notes</h3>
-      <div style="flex:1;font-size:13px;color:#475569;line-height:1.2;overflow:hidden;">
-        CV F1 = <span style="color:#2E7D32;font-weight:700;">0.980 ± 0.002</span> — strong generalization on balanced data.<br><br>
+      <div style="flex:1;font-size:12px;color:#475569;line-height:1.7;overflow:hidden;">
+        CV F1 = <span style="color:#2E7D32;font-weight:700;">0.980 ± 0.002</span> — strong generalization.<br><br>
         Limited by small minority class samples — only <b>41 Moderate</b> and <b>6 High</b> risk watersheds observed.<br><br>
         Unmonitored predictions are <span style="color:#E65100;font-weight:700;">screening-level</span> — field verification recommended.
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- RIGHT RESIZER -->
 <div class="resizer" id="resizer-right"></div>
 
-<!-- RIGHT PANEL — full height -->
+<!-- RIGHT PANEL -->
 <div id="right">
   <div class="phdr">ML Feature Importance</div>
- <div style="height:280px;padding:8px 12px;display:flex;flex-direction:column;flex-shrink:0;">
+  <div style="height:280px;padding:8px 12px;display:flex;flex-direction:column;flex-shrink:0;">
     <div style="flex:1;position:relative;min-height:0;">
       <canvas id="featChart" style="position:absolute;top:0;left:0;width:100%!important;height:100%!important;"></canvas>
     </div>
-    <div style="font-size:12px;color:#64748b;margin-top:6px;line-height:1.5;flex-shrink:0;">
+    <div style="font-size:11px;color:#64748b;margin-top:6px;line-height:1.5;flex-shrink:0;">
       <span style="color:#1565C0;font-weight:700;">Dark blue</span> = true source features (military + TRI) — contribute <span style="color:#1565C0;font-weight:700;">17.3%</span> combined.
     </div>
   </div>
 
   <div class="phdr">Model Performance</div>
-<div class="perf-grid" style="padding:12px;">
-    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:20px;">0.980</div><div class="sl" style="font-size:11px;margin-top:5px;">CV F1 Macro</div></div>
-    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:20px;">±0.002</div><div class="sl" style="font-size:11px;margin-top:5px;">Std Dev</div></div>
-    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:20px;">300</div><div class="sl" style="font-size:11px;margin-top:5px;">Trees</div></div>
-    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:20px;">9</div><div class="sl" style="font-size:11px;margin-top:5px;">Features</div></div>
+  <div class="perf-grid" style="padding:12px;">
+    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:22px;">0.980</div><div class="sl" style="font-size:11px;margin-top:5px;">CV F1 Macro</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv g" style="font-size:22px;">±0.002</div><div class="sl" style="font-size:11px;margin-top:5px;">Std Dev</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:22px;">300</div><div class="sl" style="font-size:11px;margin-top:5px;">Trees</div></div>
+    <div class="sc" style="padding:14px 8px;"><div class="sv" style="font-size:22px;">9</div><div class="sl" style="font-size:11px;margin-top:5px;">Features</div></div>
   </div>
 
   <div class="phdr">Risk Distribution</div>
-<div style="flex:1;padding:8px 12px;position:relative;min-height:135px;">
-    <canvas id="riskChart" style="position:absolute;top:8px;left:10px;right:10px;bottom:8px;width:calc(100% - 24px)!important;height:calc(100% - 16px)!important;"></canvas>
+  <div style="flex:1;padding:8px 12px;position:relative;min-height:120px;">
+    <canvas id="riskChart" style="position:absolute;top:8px;left:12px;right:12px;bottom:8px;width:calc(100% - 24px)!important;height:calc(100% - 16px)!important;"></canvas>
   </div>
 </div>
 
@@ -492,7 +415,7 @@ const oLayer=L.geoJSON(oData,{
   onEachFeature:(f,l)=>{const p=f.properties;l.bindPopup(`<div style="min-width:165px"><b style="color:#E65100">PFAS Detected</b><hr style="border:none;border-top:1px solid #FBE9E7;margin:4px 0"><b>${p.pfas_system_name}</b><br><b>County:</b> ${p.FAC_COUNTY}<br><b>Detections:</b> ${p.total_detections}<br><b>Max:</b> ${(p.max_concentration||0).toFixed(4)} µg/L</div>`);}
 });
 
-function starIcon(){return L.divIcon({html:'<div style="font-size:16px;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,0.3);"></div>',className:'',iconSize:[18,18],iconAnchor:[9,9],popupAnchor:[0,-9]});}
+function starIcon(){return L.divIcon({html:'<div style="font-size:16px;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,0.3);">⭐</div>',className:'',iconSize:[18,18],iconAnchor:[9,9],popupAnchor:[0,-9]});}
 
 function centroid(coords){
   const flat=coords.flat(Infinity);let lats=[],lngs=[];
@@ -526,8 +449,9 @@ function handleLayer(id,layer,legendId){
   if(id==='c4')checked?milLayer.addTo(map):map.removeLayer(milLayer);
   else if(layer)checked?layer.addTo(map):map.removeLayer(layer);
   if(legendId){
-    const el=document.getElementById(legendId);
-    el.style.display=checked?'flex':'none';
+    document.getElementById(legendId).style.display=checked?'flex':'none';
+    const any=['leg-pfoa','leg-other','leg-military','leg-tri','leg-unmonitored'].some(x=>document.getElementById(x).style.display!=='none');
+    document.getElementById('leg-divider').style.display=any?'block':'none';
   }
 }
 
@@ -542,11 +466,21 @@ function toggleAccordion(id){
   body.classList.toggle('open');btn.classList.toggle('open');
 }
 
+function makeResizer(rid,pid,side){
+  const resizer=document.getElementById(rid),panel=document.getElementById(pid);
+  let active=false,startX=0,startW=0;
+  resizer.addEventListener('mousedown',e=>{active=true;startX=e.clientX;startW=panel.getBoundingClientRect().width;resizer.classList.add('active');document.body.style.cursor='col-resize';document.body.style.userSelect='none';e.preventDefault();});
+  document.addEventListener('mousemove',e=>{if(!active)return;let nw=side==='left'?startW+(e.clientX-startX):startW-(e.clientX-startX);nw=Math.max(200,Math.min(500,nw));panel.style.width=nw+'px';panel.style.flex='0 0 '+nw+'px';map.invalidateSize();});
+  document.addEventListener('mouseup',()=>{if(active){active=false;resizer.classList.remove('active');document.body.style.cursor='';document.body.style.userSelect='';map.invalidateSize();}});
+}
+makeResizer('resizer-left','left','left');
+makeResizer('resizer-right','right','right');
+
 // RISK CHART
 new Chart(document.getElementById('riskChart'),{
   type:'bar',
   data:{labels:['No PFAS','Low','Moderate','High'],datasets:[{data:[1393,89,52,5],backgroundColor:['#EBF5FB','#AED6F1','#FF8C00','#CC0000'],borderColor:['#BDC3C7','#85C1E9','#E67E22','#A93226'],borderWidth:1,borderRadius:3}]},
-  options:{responsive:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:9}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#64748b',font:{size:9}},grid:{color:'#F1F5F9'}}}}
+  options:{responsive:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:10}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#64748b',font:{size:10}},grid:{color:'#F1F5F9'}}}}
 });
 
 // FEATURE CHART
@@ -554,43 +488,13 @@ const fd=[{"feature": "Dist. to PFAS Detection", "importance": 0.3768, "true_sou
 new Chart(document.getElementById('featChart'),{
   type:'bar',
   data:{labels:fd.map(d=>d.feature),datasets:[{data:fd.map(d=>d.importance),backgroundColor:fd.map(d=>d.true_source?'#1565C0':'#90CAF9'),borderColor:fd.map(d=>d.true_source?'#0D47A1':'#64B5F6'),borderWidth:1,borderRadius:2}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:12}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#475569',font:{size:12}},grid:{color:'#F1F5F9'}}}}
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#64748b',font:{size:11}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#475569',font:{size:11}},grid:{color:'#F1F5F9'}}}}
 });
 
-// PANEL RESIZING
-function makeResizer(rid, pid, side){
-  const resizer=document.getElementById(rid);
-  const panel=document.getElementById(pid);
-  let active=false,startX=0,startW=0;
-  resizer.addEventListener('mousedown',e=>{
-    active=true;startX=e.clientX;
-    startW=panel.getBoundingClientRect().width;
-    resizer.classList.add('active');
-    document.body.style.cursor='col-resize';
-    document.body.style.userSelect='none';
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove',e=>{
-    if(!active)return;
-    const dx=e.clientX-startX;
-    let nw=side==='left'?startW+dx:startW-dx;
-    nw=Math.max(150,Math.min(420,nw));
-    panel.style.width=nw+'px';
-    panel.style.flex='0 0 '+nw+'px';
-    map.invalidateSize();
-  });
-  document.addEventListener('mouseup',()=>{
-    if(active){
-      active=false;
-      resizer.classList.remove('active');
-      document.body.style.cursor='';
-      document.body.style.userSelect='';
-      map.invalidateSize();
-    }
-  });
+// MOBILE
+if(window.innerWidth < 900){
+  setTimeout(()=>map.invalidateSize(),300);
 }
-makeResizer('resizer-left','left','left');
-makeResizer('resizer-right','right','right');
 </script>
 </body>
 </html>
