@@ -98,38 +98,13 @@ body{
 <div id="content">
 
 <div id="left">
-  <div class="phdr">Overview</div>
-  <div style="padding:10px 12px;font-size:14px;color:#475569;line-height:1.7;border-bottom:1px solid #E8EDF2;flex-shrink:0;">
-    This dashboard shows predicted PFAS contamination risk across Ohio's 1,541 HUC12 watersheds using a Random Forest machine learning model trained on EPA monitoring data, military installations, and industrial PFAS sources.
-  </div>
-
   <div class="phdr">Key Statistics</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 12px;flex-shrink:0;">
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv" style="font-size:22px;">{stats['total_watersheds']:,}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">HUC12 Watersheds</div>
-    </div>
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv o" style="font-size:22px;">{stats['pfas_watersheds']}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">With PFAS</div>
-    </div>
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv r" style="font-size:22px;">{stats['pfoa_pfos_systems']}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">PFOA/PFOS Systems</div>
-    </div>
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv o" style="font-size:22px;">{stats['other_pfas_systems']}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">Other PFAS Systems</div>
-    </div>
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv" style="font-size:22px;">{stats['total_detections']:,}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">Total Detections</div>
-    </div>
-    <div class="sc" style="padding:12px 8px;">
-      <div class="sv o" style="font-size:22px;">{stats['priority_unmonitored']}</div>
-      <div class="sl" style="font-size:11px;margin-top:5px;">Priority Unmonitored</div>
-    </div>
-  </div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Total HUC12 Watersheds</div><div class="stat-value">1,541</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Watersheds With PFAS</div><div class="stat-value o">117</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">PFOA/PFOS Systems</div><div class="stat-value r">56</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Other PFAS Systems</div><div class="stat-value o">75</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Total Detections</div><div class="stat-value">665</div></div></div>
+  <div class="stat-item"><div class="stat-icon"></div><div><div class="stat-label">Priority Unmonitored</div><div class="stat-value o">14</div></div></div>
 
   <div class="accordion">
     <button class="accordion-btn open" onclick="toggleAccordion('meth')">
